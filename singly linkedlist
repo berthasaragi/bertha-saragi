@@ -1,0 +1,125 @@
+import os
+os.system('cls')
+
+
+print('''
+==========================================
+|   DAFTAR RIWAYAT PENCARIAN GET CONTACT  |
+===========================================''')
+print("\n>> silahkan login terlebih dahulu  <<")
+while True:
+    nama = input("\n masukkan nama : ")
+    pw = input(" masukkan password : ")
+    if nama == 'bertha' and pw == '12345':
+        os.system('cls')
+        print('     >>> Welcome Bertha!!!!! <<<')
+        class Node:
+            def __init__(self, nama, nomor):
+                self.nama = nama
+                self.nomor = nomor
+                self.next = None
+
+        class LinkedList:
+            def __init__(self):
+                self.head = None
+
+            def cari(self, nama):
+                if self.head is None:
+                    return None
+
+                current_nama = self.head
+                while current_nama is not None:
+                    if current_nama.nama == nama:
+                        return current_nama
+                    current_nama = current_nama.next
+
+                return None
+
+            def print_list(self):
+                if self.head is None:
+                    print("\n>> Tidak ada <<")
+                    return
+                print(">>> Berikut Riwayat pencarian Get Contact Anda <<<")
+                current_contact = self.head
+                while current_contact is not None:
+                    
+                    print(f"{current_contact.nama} \t ({current_contact.nomor})")
+                    current_contact = current_contact.next
+
+            def tambah(self, nama, nomor):
+                new_node = Node(nama, nomor)
+                if not self.head:
+                    self.head = new_node
+                    return
+                curr_node = self.head
+                while curr_node.next:
+                    curr_node = curr_node.next
+                curr_node.next = new_node
+                    
+
+            def ubah(self, nama, nomor):
+                curr = self.head
+                while curr is not None:
+                    if curr.nama == nama:
+                        curr.nomor = nomor
+                        print("\n>> Data pasien berhasil diubah <<")
+                        break
+                    curr = curr.next
+                else:
+                    print(f'\n>> Nama Pasien "{nama}" tidak ditemukan <<')
+
+            def hapus(self, key):
+                curr_node = self.head
+                if curr_node and curr_node.nama == key:
+                    self.head = curr_node.next
+                    curr_node = None
+                    return
+                prev_node = None
+                while curr_node and curr_node.nama != key:
+                    prev_node = curr_node
+                    curr_node = curr_node.next
+                if curr_node is None:
+                    return
+                prev_node.next = curr_node.next
+                curr_node = None
+                print('pencarian telah dihapus')
+
+        history = LinkedList()
+        history.tambah('\nnoel TL', 6286283640183)
+        history.tambah('boy TI ', 6283619272936)
+        history.tambah('angel SI', 6287264382910)
+        history.tambah('shelom AI', 6283692730615)
+
+        while True:
+            print("===============Menu==============")
+            print("1. Tampilkan riwayat pencarian")
+            print("2. Tambah riwayat pencarian")
+            print("3. Hapus riwayat pencarian")
+            print("4. Edit nomor pencarian")
+            print("5. Keluar")
+            print("==================================")
+            pilih = int(input("Masukkan pilihan Anda: "))
+
+            if pilih == 1:
+                history.print_list()
+            elif pilih == 2:
+                nama = input("Masukkan nama pencarian: ")
+                nomor = int(input('Nomor pencarian : '))
+
+                history.tambah(nama, nomor)     
+            elif pilih == 3:
+                nama = input("Masukkan riwayat pencarian yang ingin dihapus: ")
+                history.hapus(nama)
+            elif pilih == 4:
+                nm = input('Masukkan nama yang ingin diubah : ')
+                nomor = int(input('nomor Baru : '))
+                history.ubah(nm, nomor)
+            elif pilih == 5:
+                print("bye...")
+                break
+            else:
+                print("Pilihan tidak tersedia")
+        break
+    else:
+        print('nama atau password salah')
+    
